@@ -38,7 +38,7 @@ def totalenergy(pos):
                 if dij<Lred/2:
                     Etemp=1/math.pow(dij,2)*math.exp(-dij+1)
             E=E+Etemp
-    E=Ared*Etemp
+    E=Ared*E
     return E
     
 '''energy of the u particle'''    
@@ -54,7 +54,7 @@ def energy_i(pos,u):
             if dij<Lred/2:
                 Etemp=1/math.pow(dij,2)*math.exp(-dij+1)
         E=E+Etemp
-    E=Ared*Etemp
+    E=Ared*E
     return E
     
 '''Generate random positions'''
