@@ -50,17 +50,14 @@ E=Ared*E
 
 accep=0
 Ener=np.zeros(steps)
-Esum=0
-for s in range(0,steps):
 
+for s in range(0,steps):
     for u in range(N):
-        '''u=ran.randint(0,N-1)'''
+
         xnew=r[u,0]+delta*(ran.random()-0.5)
         ynew=r[u,1]+delta*(ran.random()-0.5)
         znew=r[u,2]+delta*(ran.random()-0.5)
-        
-        Ener[s]=E
-    
+            
         Eij=0
         for j in range(N):
             Etemp=0
@@ -102,7 +99,6 @@ for s in range(0,steps):
                 r[u,2]=znew
                 E=Enew
                 accep+=1            
-        Esum+=E
     Ener[s]=E/N
 plt.plot(Ener)
 
