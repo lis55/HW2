@@ -58,22 +58,24 @@ for s in range(0,steps):
     Eij=0
     for j in range(N):
         Etemp=0
-        dij=distance(r[u,0],r[j,0],r[u,1],r[j,1],r[u,2],r[j,2])
-        if dij<1:
-            Etemp=Ared/(N*math.pow(dij,3))
-        if dij<Lred/2:
-            Etemp=Ared/(N*math.pow(dij,2))*math.exp(-dij+1)
+        if j!=u:
+            dij=distance(r[u,0],r[j,0],r[u,1],r[j,1],r[u,2],r[j,2])
+            if dij<1:
+                Etemp=Ared/(N*math.pow(dij,3))
+            if dij<Lred/2:
+                Etemp=Ared/(N*math.pow(dij,2))*math.exp(-dij+1)
         Eij=Eij+Etemp
     Eij=Ared/N*E
     
     Eijnew=0
     for j in range(N):
         Etemp=0
-        dij=distance(xnew,r[j,0],ynew,r[j,1],znew,r[j,2])
-        if dij<1:
-            Etemp=Ared/(N*math.pow(dij,3))
-        if dij<Lred/2:
-            Etemp=Ared/(N*math.pow(dij,2))*math.exp(-dij+1)
+        if j!=u:
+            dij=distance(xnew,r[j,0],ynew,r[j,1],znew,r[j,2])
+            if dij<1:
+                Etemp=Ared/(N*math.pow(dij,3))
+            if dij<Lred/2:
+                Etemp=Ared/(N*math.pow(dij,2))*math.exp(-dij+1)
         Eijnew=Eijnew+Etemp
     Eijnew=Ared/N*E
     
