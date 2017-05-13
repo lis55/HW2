@@ -70,27 +70,41 @@ Erun=totalenergy(r)
 '''MC cycles'''
 accep=0
 rnew=np.zeros([N,3]) 
-rnew[:][:]=r[:][:]
+
+for i in range(N):
+    rnew[i,0]=r[i,0]
+    rnew[i,1]=r[i,1]
+    rnew[i,2]=r[i,2]
+
 for s in range(steps):
 
     for k in range (N):
-        rnew[k,0]=r[k,0]+delta*(ran.random()-0.5)
-        rnew[k,1]=r[k,1]+delta*(ran.random()-0.5)
-        rnew[k,2]=r[k,2]+delta*(ran.random()-0.5)
+        xnew=r[k,0]+delta*(ran.random()-0.5)
+        ynew=r[k,1]+delta*(ran.random()-0.5)
+        znew=r[k,2]+delta*(ran.random()-0.5)
+        rnew[k,0]=xnew
+        rnew[k,1]=ynew
+        rnew[k,2]=znew
         
-        D_E=energy_i(rnew,k)-energy_i(r,k)
-        Enew=Erun+D_E
+        '''D_E=energy_i(rnew,k)-energy_i(r,k)'''
+        Eiold=energy_i(r,k)
+        Einew=energy_i(rnew,k)
+        D_E=Einew-Eiold
+        Enew=Erun-Eiold+Einew
+        print(D_E)
         
-        if D_E<=0:
+        '''if D_E<=0:
             r[:][:]=rnew[:][:]
             Erun=Enew
             accep+=1
-        else:
-            rannum=ran.random()
-            if rannum<=math.exp(-D_E):
-                r[:][:]=rnew[:][:]
-                Erun=Enew
-                accep+=1
+        else:'''
+        rannum=ran.random()
+        if rannum<=math.exp(-D_E):
+            r[k,0]=xnew
+            r[k,1]=ynew
+            r[k,2]=znew
+            Erun=Enew
+            accep+=1
                 
     Energy[s]=Erun/N
 plt.plot(Energy)
