@@ -10,9 +10,10 @@ Created on Tue May  9 23:38:40 2017
 import random as ran
 import numpy as np
 import math
+import matplotlib.pyplot as plt
 
 N=60
-steps=100
+steps=5000
 Lred=math.pow(N/0.5,1/3)
 Ared=0.8
 delta=1/4
@@ -41,31 +42,33 @@ for i in range(N):
         if i<j:
             dij=distance(r[i,0],r[j,0],r[i,1],r[j,1],r[i,2],r[j,2])
             if dij<1:
-                Etemp=Ared/(N*math.pow(dij,3))
+                Etemp=math.pow(dij,3)
             if dij<Lred/2:
-                Etemp=Ared/(N*math.pow(dij,2))*math.exp(-dij+1)
+                Etemp=math.pow(dij,2)*math.exp(-dij+1)
         E=E+Etemp
 E=Ared/N*E
 
 accep=0
+Ener=np.zeros(steps)
 for s in range(0,steps):
     u=ran.randint(0,N-1)
     xnew=r[u,0]+delta*(ran.random()-0.5)
     ynew=r[u,1]+delta*(ran.random()-0.5)
     znew=r[u,2]+delta*(ran.random()-0.5)
-    print(xnew)
-    print(r[u,0])
+    
+    Ener[s]=E
+
     Eij=0
     for j in range(N):
         Etemp=0
         if j!=u:
             dij=distance(r[u,0],r[j,0],r[u,1],r[j,1],r[u,2],r[j,2])
             if dij<1:
-                Etemp=Ared/(N*math.pow(dij,3))
+                Etemp=math.pow(dij,3)
             if dij<Lred/2:
-                Etemp=Ared/(N*math.pow(dij,2))*math.exp(-dij+1)
+                Etemp=math.pow(dij,2)*math.exp(-dij+1)
         Eij=Eij+Etemp
-    Eij=Ared/N*E
+    Eij=Ared/N*Eij
     
     Eijnew=0
     for j in range(N):
@@ -73,14 +76,14 @@ for s in range(0,steps):
         if j!=u:
             dij=distance(xnew,r[j,0],ynew,r[j,1],znew,r[j,2])
             if dij<1:
-                Etemp=Ared/(N*math.pow(dij,3))
+                Etemp=math.pow(dij,3)
             if dij<Lred/2:
-                Etemp=Ared/(N*math.pow(dij,2))*math.exp(-dij+1)
+                Etemp=math.pow(dij,2)*math.exp(-dij+1)
         Eijnew=Eijnew+Etemp
-    Eijnew=Ared/N*E
+    Eijnew=Ared/N*Eijnew
     
     Enew=E-Eij+Eijnew
-    D_E=Enew-E
+    D_E=Eijnew-Eij
     
     if D_E<=0:
         print(D_E)
@@ -97,6 +100,9 @@ for s in range(0,steps):
             r[i,2]=znew
             E=Enew
             accep+=1
+            
+   
+plt.plot(Ener)
 
             
 
