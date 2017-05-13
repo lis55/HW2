@@ -50,6 +50,7 @@ E=Ared/N*E
 
 accep=0
 Ener=np.zeros(steps)
+Esum=0
 for s in range(0,steps):
 
     for u in range(N):
@@ -101,8 +102,9 @@ for s in range(0,steps):
                 r[u,2]=znew
                 E=Enew
                 accep+=1            
-       
-    plt.plot(Ener)
+        Esum+=E
+    Ener[s]=Esum/N
+plt.plot(Ener)
 
             
 
