@@ -13,7 +13,7 @@ import math
 import matplotlib.pyplot as plt
 
 N=60
-steps=5000
+steps=500
 Lred=math.pow(2*N,1/3)
 Ared=0.8
 delta=1.0/4.0
@@ -51,6 +51,7 @@ E=Ared/N*E
 accep=0
 Ener=np.zeros(steps)
 for s in range(0,steps):
+
     for u in range(N):
         '''u=ran.randint(0,N-1)'''
         xnew=r[u,0]+delta*(ran.random()-0.5)
