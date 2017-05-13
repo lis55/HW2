@@ -13,7 +13,7 @@ import math
 import matplotlib.pyplot as plt
 
 N=60
-steps=500
+steps=100
 Lred=math.pow(2*N,1/3)
 Ared=0.8
 delta=1.0/4.0
@@ -46,10 +46,11 @@ for i in range(N):
             if dij<Lred/2:
                 Etemp=1/math.pow(dij,2)*math.exp(-dij+1)
         E=E+Etemp
-E=Ared/N*E
+E=Ared*E
 
 accep=0
 Ener=np.zeros(steps)
+Esum=0
 for s in range(0,steps):
 
     for u in range(N):
@@ -70,7 +71,7 @@ for s in range(0,steps):
                 if dij<Lred/2:
                     Etemp=1/math.pow(dij,2)*math.exp(-dij+1)
             Eij=Eij+Etemp
-        Eij=Ared/N*Eij
+        Eij=Ared*Eij
         
         Eijnew=0
         for j in range(N):
@@ -82,7 +83,7 @@ for s in range(0,steps):
                 if dij<Lred/2:
                     Etemp=1/math.pow(dij,2)*math.exp(-dij+1)
             Eijnew=Eijnew+Etemp
-        Eijnew=Ared/N*Eijnew
+        Eijnew=Ared*Eijnew
         
         Enew=E-Eij+Eijnew
         D_E=Eijnew-Eij
@@ -101,8 +102,9 @@ for s in range(0,steps):
                 r[u,2]=znew
                 E=Enew
                 accep+=1            
-       
-    plt.plot(Ener)
+        Esum+=E
+    Ener[s]=E/N
+plt.plot(Ener)
 
             
 

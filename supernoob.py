@@ -10,7 +10,7 @@ import math
 import matplotlib.pyplot as plt
 
 N=60
-steps=500
+steps=100
 Lred=math.pow(2*N,1/3)
 Ared=0.8
 delta=1.0/4.0
@@ -35,7 +35,7 @@ def totalenergy(pos):
                     Etemp+=1/math.pow(dij,3)
                 if dij<Lred/2:
                     Etemp+=1/math.pow(dij,2)*math.exp(-dij+1)
-    E=Ared/N*Etemp
+    E=Ared*Etemp
     return E
     
 '''energy of the u particle'''    
@@ -48,7 +48,7 @@ def energy_i(pos,u):
                 Etemp+=1/math.pow(dij,3)
             if dij<Lred/2:
                 Etemp+=1/math.pow(dij,2)*math.exp(-dij+1)
-    E=Ared/N*Etemp
+    E=Ared*Etemp
     return E
     
 '''Generate random positions'''
@@ -60,36 +60,35 @@ for i in range(N):
 
 '''initial energy'''
 Energy=np.zeros(steps)
-Eo=totalenergy(r)
-
+Erun=totalenergy(r)
 '''MC cycles'''
 accep=0
-Eave=np.zeros[steps]
 for s in range(steps):
-    Energy[0]=Eo
     rnew=np.zeros([N,3]) 
-    rnew=r
-    Esum=0
+    rnew[:][:]=r[:][:]
+
     for k in range (N):
         rnew[k,0]=r[k,0]+delta*(ran.random()-0.5)
         rnew[k,1]=r[k,1]+delta*(ran.random()-0.5)
         rnew[k,2]=r[k,2]+delta*(ran.random()-0.5)
         
         D_E=energy_i(rnew,k)-energy_i(r,k)
+
+        
         if D_E<=0:
-            r=rnew
-            Energy[s]=Energy[s]+D_E
+            r[:][:]=rnew[:][:]
+            Erun+=D_E
             accep+=1
         else:
             rannum=ran.random()
             if rannum<=math.exp(-D_E):
-                r=rnew
-                Energy[s]=Energy[s]+D_E
+                r[:][:]=rnew[:][:]
+                Erun+=D_E
                 accep+=1
                 
-        Esum+=Energy[s]
 
-    Eave[s]=Esum/N
+    Energy[s]=Erun/N
+plt.plot(Energy)
 
 
         
