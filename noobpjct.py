@@ -18,9 +18,9 @@ Lred=math.pow(N/0.5,1/3)
 Ared=0.8
 delta=1/4
 def distance(xi,xii,yi,yii,zi,zii):
-    sq1 = xi-xii-Lred*math.floor((xi-xii)/Lred)
-    sq2 = yi-yii-Lred*math.floor((yi-yii)/Lred)
-    sq3 = zi-zii-Lred*math.floor((zi-zii)/Lred)
+    sq1 = xi-xii-Lred*math.floor((xi-xii)/Lred+0.5)
+    sq2 = yi-yii-Lred*math.floor((yi-yii)/Lred+0.5)
+    sq3 = zi-zii-Lred*math.floor((zi-zii)/Lred+0.5)
     
     sq1=sq1*sq1
     sq2=sq2*sq2
