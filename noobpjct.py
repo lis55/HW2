@@ -35,6 +35,8 @@ def distance(xi,xii,yi,yii,zi,zii):
     
         
 r=np.zeros([N,3])
+
+
 for i in range(N):
     r[i,0]=np.random.uniform()*Lred
     r[i,1]=np.random.uniform()*Lred
